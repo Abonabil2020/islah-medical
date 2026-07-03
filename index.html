@@ -325,7 +325,13 @@ function calculate() {
   // التاريخ واليوم من الإدخال
   const dateInput = document.getElementById('inp-date').value;
   const days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-  const dateObj = dateInput ? new Date(dateInput + 'T00:00:00') : new Date();
+  let dateObj;
+  if (dateInput) {
+    const [y, m, d] = dateInput.split('-').map(Number);
+    dateObj = new Date(y, m - 1, d);
+  } else {
+    dateObj = new Date();
+  }
   const dateStr = dateObj.toLocaleDateString('ar-EG', {year:'numeric', month:'long', day:'numeric'});
   document.getElementById('res-date').textContent = dateStr;
   document.getElementById('res-day').textContent = days[dateObj.getDay()];
